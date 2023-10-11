@@ -60,9 +60,12 @@ The first thing to do is to clone the Starter Code Repository.
 
 Type 'npm init' in the terminal to get package.json.
 
+
 Type 'npm install express' in the terminal to install dependencies for the project.
 
 Type 'node server.js' to initiate the server.
+
+Type 'npm i uuid'  unique tracking
 
 your choice to use [nodemon](https://www.npmjs.com/package/nodemon)
 
