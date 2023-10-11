@@ -1,9 +1,12 @@
 import { Router } from 'express';
 import { notes } from '../../db/db.json';
 import { createNewNote, validateNote } from '../../lib/notes';
-import { v4 as uuidv4 } from 'uuid';
+import { Router } from 'express';
 import fs from 'fs';
 import path from 'path';
+import { v4 as uuidv4 } from 'uuid';
+import { notes } from '../../db/db.json';
+import { createNewNote, validateNote } from '../../lib/notes';
 
 const router = Router();
 
@@ -13,19 +16,20 @@ router.get('/notes', (req, res) => {
     res.json(results);
 });
 
-
 // POST route for a new note
 router.post('/notes', (req, res) => {
     // set id based on what the next index of the array will be
-    req.body.id = uuidv4();
+    const id = uuidv4();
     // if any data in req.body is incorrect, send 400 error back
     if (!validateNote(req.body)) {
         res.status(400).send('The note is not properly formatted.');
     } else {
-        const note = createNewNote (req.body, notes);
+        const note = createNewNote ({ ...req.body, id }, notes);
         res.json(note);
     }
 });
+
+export default router;
 
 // DELETE route for a note
 router.delete('/notes/:id', (req, res) => {

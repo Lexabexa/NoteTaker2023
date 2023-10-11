@@ -1,12 +1,10 @@
 //server and dependencies
-const express = require('express');
+import express from 'express';
 const app = express();//creates express app
-const fs = require('fs');
-const path = require('path');
+import { join } from 'path';
 //add routes
-require('./routes/apiRoutes')(app);
-require('./routes/htmlRoutes')(app);
-
+import apiRoutes from './routes/apiRoutes.js';
+import htmlRoutes from './routes/htmlRoutes.js';
 
 //PORT heroku or local
 const PORT = process.env.PORT || 3000;
@@ -14,7 +12,15 @@ const PORT = process.env.PORT || 3000;
 //middleware json
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(join('public')));
+// add routes
+apiRoutes(app);
+htmlRoutes(app);
+
+//listener
+app.listen(PORT, () => {
+    console.log(`App listening on PORT: ${PORT}`);
+});
 
 
 //listener
