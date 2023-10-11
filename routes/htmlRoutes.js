@@ -1,13 +1,15 @@
-const path = require('path');
-const router = require('express').Router.();
+import path from 'path';
+import { Router } from 'express';
+
+const router = Router();
 
 //note sends to html
-router.get('/notes', (req, res) => {
+router.get('/notes', (_req, res) => {
     res.sendFile(path.join(__dirname, '../public/notes.html'));
 });
 //home
-router.get('*', (req, res) => {
+router.get('*', (_req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
 }); 
 
-module.exports = router;
+export default router;
